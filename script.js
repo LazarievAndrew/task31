@@ -14,15 +14,15 @@
 
 function deepFreeze(obj){
         
-    for (let [key] of Object.entries(obj)) {
+    Object.entries(obj).forEach(([key, value]) => {
 
         if (typeof obj[key] === 'object'){
 
             deepFreeze(obj[key])
         };
 
-        Object.defineProperty(obj, key, {writable: false, configurable: false});  
-    }
+        Object.defineProperty(obj, key, {value : value, writable: false, configurable: false});  
+    });
 };
 
 
@@ -33,8 +33,12 @@ var man = {
     name : 'Andy',
     age : 43,
     body : {
-        hand : 2,
+        hand : {
+            finger : 5,
+            palm : 1
+        },
         leg :2
+
     }
 };
 
@@ -56,5 +60,5 @@ console.log (y);
 
 let yy = Object.getOwnPropertyDescriptor(man.body, 'leg');
 
-// console.log (y);
+console.log (yy);
 ////////////////////////////////////////////////////////////////
